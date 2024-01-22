@@ -1,5 +1,4 @@
-# Beyond the Surface: Spurious Cues in Automatic Media Bias Detection
-
+# Beyond the Surface: <span style="background-color: #e3aab0;">Spurious</span> Cues in <span style="background-color: #8fb38f;">Automatic</span> Media <span style="background-color: #d47b7c;">Bias</span> Detection
 
 
 ## Overview
@@ -40,11 +39,11 @@ pip install -r requirements.txt
 
     ```
     python src/scripts/get_feature_attributions.py
-    ``` 
+    ```
 - visualize the results
     ```
     python src/scripts/visualize_attributions.py
-    ``` 
+    ```
 
 3. Stress-test the model
     ```

@@ -74,11 +74,13 @@ class BaseExplainer(ABC):
         if path is not None:
             if os.path.exists(path):
                 with open(
-                    os.path.join(path, f"token2att_{class_str}.pkl"), "rb"
+                    os.path.join(path, f"token2att_{class_str}.pkl"),
+                    "rb",
                 ) as f:
                     self.token2att = pickle.load(f)
                 with open(
-                    os.path.join(path, f"counter_{class_str}.pkl"), "rb"
+                    os.path.join(path, f"counter_{class_str}.pkl"),
+                    "rb",
                 ) as f:
                     self.counter = pickle.load(f)
                 return
@@ -111,9 +113,15 @@ class BaseExplainer(ABC):
             averaged_token2att[key] = token2att[key] / counter[key]
 
         # save to file
-        with open(f"data/{class_str}_attributions/token2att_{class_str}.pkl", "wb") as f:
+        with open(
+            f"data/{class_str}_attributions/token2att_{class_str}.pkl",
+            "wb",
+        ) as f:
             pickle.dump(averaged_token2att, f)
-        with open(f"data/{class_str}_attributions/counter_{class_str}.pkl", "wb") as f:
+        with open(
+            f"data/{class_str}_attributions/counter_{class_str}.pkl",
+            "wb",
+        ) as f:
             pickle.dump(counter, f)
 
         self.token2att = averaged_token2att
@@ -154,4 +162,8 @@ class BaseExplainer(ABC):
         plt.imshow(wordcloud, interpolation="bilinear")
         plt.axis("off")  # Hide the axes
         class_str = self.class_names[self.last_explained_class]
-        plt.savefig(f"data/figures/{class_str}.png", dpi=500, bbox_inches="tight")
+        plt.savefig(
+            f"data/figures/{class_str}.png",
+            dpi=500,
+            bbox_inches="tight",
+        )

@@ -21,13 +21,17 @@ class AttentionExplainer(BaseExplainer):
 
         no_tokens = output.attentions[0].shape[-1]
         top_k = self.top_k if self.top_k <= no_tokens else no_tokens
-        attentions = torch.mean(output[-1][-1], dim=1, keepdim=False)[:, 0, :].topk(
+        attentions = torch.mean(output[-1][-1], dim=1, keepdim=False)[
+            :, 0, :
+        ].topk(
             top_k,
         )  # get the top k tokens with the highest attention scores
         # get the decoded tokens and attention scores for the top k tokens in the sentence
         # (excluding special tokens)
         output = {
-            self.tokenizer.decode(tokens["input_ids"][:, seq_pos_idx].item()): att_value
+            self.tokenizer.decode(
+                tokens["input_ids"][:, seq_pos_idx].item()
+            ): att_value
             for seq_pos_idx, att_value in zip(
                 attentions.indices[-1].tolist(),
                 attentions.values[-1].tolist(),
