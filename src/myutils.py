@@ -1,6 +1,9 @@
 import nltk
 from nltk.stem import WordNetLemmatizer
-from nltk.corpus import wordnet as wn
+from nltk.corpus import wordnet as wn, stopwords
+from nltk.tokenize import word_tokenize
+
+nltk.download("stopwords")
 
 
 def is_noun(tag):
@@ -46,3 +49,17 @@ def norm_(ar):
     """Normalize the (attention) array."""
     normalized = (ar - ar.min()) / (ar.max() - ar.min())
     return normalized / normalized.sum()
+
+
+def remove_stopwords(sentence):
+    stop_words = set(
+        stopwords.words("english")
+    )  # Change 'english' to your language of choice
+    word_tokens = word_tokenize(sentence)
+
+    filtered_sentence = [
+        word for word in word_tokens if word.lower() not in stop_words
+    ]
+
+    # Join the words back into a sentence
+    return " ".join(filtered_sentence)
